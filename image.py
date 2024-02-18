@@ -15,6 +15,15 @@ enhancer = RealESRGAN_ONNX(model_path="RealEsrganONNX/RealESRGAN_x2_fp16.onnx", 
             
 img = cv2.imread(opt.image)
 
+#
+height, width, channels = img.shape
+if width %2 !=0:
+    width = width - 1
+if height %2 !=0:
+    height = height - 1
+img = cv2.resize(img,(width,height))
+#
+
 #use fp16 for faster inference
 result = enhancer.enhance_fp16(img)
 #result = enhancer.enhance(img)
